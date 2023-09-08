@@ -10,8 +10,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: 'var(--font-roboto)',
-        alt: 'var(--font-bai-janjuree)'
+        alt: 'var(--font-bai-janjuree)',
       },
+
       colors: {
         gray: {
           50: '#eaeaea',
@@ -23,7 +24,7 @@ const config: Config = {
           600: '#28282d',
           700: '#1f1f23',
           800: '#18181b',
-          900: '#121215'
+          900: '#121215',
         },
         purple: {
           50: '#f3eefc',
@@ -35,7 +36,7 @@ const config: Config = {
           600: '#764fd0',
           700: '#5c3ea3',
           800: '#48307e',
-          900: '#372560'
+          900: '#372560',
         },
         green: {
           50: '#e6fbef',
@@ -47,8 +48,21 @@ const config: Config = {
           600: '#04c058',
           700: '#039645',
           800: '#027435',
-          900: '#025929'
+          900: '#025929',
         },
+      },
+
+      backgroundImage: {
+        stripes:
+          'linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 12.5%, transparent 12.5%, transparent)',
+      },
+
+      backgroundSize: {
+        stripes: '100% 8px',
+      },
+
+      blur: {
+        full: '194px',
       },
     },
   },
