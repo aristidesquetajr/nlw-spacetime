@@ -1,4 +1,6 @@
 import { FastifyInstance } from 'fastify'
+import { z } from 'zod'
+
 import { prisma } from '../lib/prisma'
 
 export async function memoriesRoutes(app: FastifyInstance) {
@@ -19,7 +21,11 @@ export async function memoriesRoutes(app: FastifyInstance) {
   })
 
   app.get('/memories/:id', async (request) => {
-    const { id } = request.params
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    })
+
+    const { id } = paramsSchema.parse(request.params)
 
     const memory = await prisma.memory.findUniqueOrThrow({
       where: {
@@ -31,7 +37,13 @@ export async function memoriesRoutes(app: FastifyInstance) {
   })
 
   app.post('/memories', async (request) => {
-    const { coverUrl, content, isPublic } = request.body
+    const bodySchema = z.object({
+      coverUrl: z.string(),
+      content: z.string(),
+      isPublic: z.boolean().default(false),
+    })
+
+    const { coverUrl, content, isPublic } = bodySchema.parse(request.body)
 
     const memory = await prisma.memory.create({
       data: {
@@ -46,9 +58,19 @@ export async function memoriesRoutes(app: FastifyInstance) {
   })
 
   app.put('/memories/:id', async (request) => {
-    const { id } = request.params
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    })
 
-    const { coverUrl, content, isPublic } = request.body
+    const { id } = paramsSchema.parse(request.params)
+
+    const bodySchema = z.object({
+      coverUrl: z.string(),
+      content: z.string(),
+      isPublic: z.boolean().default(false),
+    })
+
+    const { coverUrl, content, isPublic } = bodySchema.parse(request.body)
 
     const memory = await prisma.memory.update({
       where: {
@@ -65,7 +87,11 @@ export async function memoriesRoutes(app: FastifyInstance) {
   })
 
   app.delete('/memories/:id', async (request) => {
-    const { id } = request.params
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    })
+
+    const { id } = paramsSchema.parse(request.params)
 
     await prisma.memory.delete({
       where: {
